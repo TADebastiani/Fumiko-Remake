@@ -26,7 +26,7 @@ func flip(direction: float) -> void:
 		$ArtackArea.scale.x = direction
 
 
-func _on_HurtArea_body_entered(body: Node) -> void:
+func _on_HurtArea_body_entered(_body: Node) -> void:
 	__life -= 1
 	if __life == 0:
 		emit_signal("dead")

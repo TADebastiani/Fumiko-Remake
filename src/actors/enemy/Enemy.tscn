@@ -11,7 +11,7 @@ resource_name = "walk"
 loop = true
 step = 0.25
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Body/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -27,10 +27,17 @@ tracks/0/keys = {
 collision_layer = 4
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Body" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Body"]
 texture = ExtResource( 1 )
 hframes = 4
 frame = 3
+
+[node name="RayCast2D" type="RayCast2D" parent="Body"]
+position = Vector2( -8, 0 )
+enabled = true
+cast_to = Vector2( 0, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -39,11 +46,6 @@ shape = SubResource( 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 2.3
 anims/walk = SubResource( 2 )
-
-[node name="HoleDetector" type="RayCast2D" parent="."]
-position = Vector2( -5, 0 )
-enabled = true
-cast_to = Vector2( 0, 8 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 physics_process_parent = true

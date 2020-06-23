@@ -5,7 +5,7 @@ const DEFAULT = {
 	ACCELERATION = Vector2(10000, 1000)
 }
 
-var max_speed: Vector2 = DEFAULT.MAX_SPPED
+var maximum_speed: Vector2 = DEFAULT.MAX_SPPED
 var acceleration: Vector2 = DEFAULT.ACCELERATION
 var jump_impulse := 400
 
@@ -27,13 +27,9 @@ func unhandled_input(event: InputEvent) -> void:
 
 
 func state_process(delta: float) -> void:
-	velocity = calculate_velocity(velocity, max_speed, acceleration, delta, get_direction())
+	velocity = calculate_velocity(velocity, maximum_speed, acceleration, delta, get_direction())
 	velocity = owner.move_and_slide_with_snap(velocity, snap_vector, owner.FLOOR_NORMAL)
 	owner.flip(get_direction().x)
-
-
-func exit() -> void:
-	pass
 
 
 func get_direction() -> Vector2:
@@ -44,13 +40,13 @@ func get_direction() -> Vector2:
 func calculate_velocity(
 		old_velocity: Vector2,
 		max_speed: Vector2,
-		acceleration: Vector2,
+		accel: Vector2,
 		delta: float,
 		move_direction: Vector2
 	) -> Vector2:
 	var new_velocity := old_velocity
 
-	new_velocity += move_direction * acceleration * delta
+	new_velocity += move_direction * accel * delta
 	new_velocity.x = clamp(new_velocity.x, -max_speed.x, max_speed.x)
 
 	if new_velocity.y > max_speed.y:

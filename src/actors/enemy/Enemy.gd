@@ -18,10 +18,18 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_velocity.y += gravity * delta
-	if is_on_floor() and is_on_wall():
-		_velocity.x *= -1
-		$Sprite.flip_h = not $Sprite.flip_h
 	_velocity.y = move_and_slide(_velocity, FLOOR_NORMAL).y
+	if is_on_wall() or is_on_gap():
+		flip()
+
+
+func is_on_gap() -> bool:
+	return not $Body/RayCast2D.is_colliding()
+
+
+func flip() -> void:
+	_velocity.x *= -1
+	$Body.scale.x *= -1
 
 
 func kill() -> void:

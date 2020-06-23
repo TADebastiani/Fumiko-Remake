@@ -25,7 +25,7 @@ func destroy_until(point: Vector2) -> void:
 
 func create_levels(size: int) -> Array:
 	var positions = []
-	for i in range(size):
+	for _i in range(size):
 		positions.append(create_level())
 	return positions
 

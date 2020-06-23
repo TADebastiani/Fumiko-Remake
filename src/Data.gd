@@ -23,7 +23,6 @@ static func _load() -> int:
 		save_file.open(__save_path, File.READ)
 		data = int(save_file.get_line())
 
-	print(data)
 	save_file.close()
 	return data
 

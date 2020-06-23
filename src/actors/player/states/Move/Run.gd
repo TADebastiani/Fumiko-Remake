@@ -1,7 +1,7 @@
 extends State
 
 
-func enter(msg: Dictionary = {}) -> void:
+func enter(_msg: Dictionary = {}) -> void:
 	owner.animation_player.play("run")
 
 

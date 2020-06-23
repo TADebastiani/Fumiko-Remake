@@ -26,7 +26,7 @@ func set_min() -> void:
 
 
 func set_step(value: int) -> void:
-	current_step = clamp(value, 0, __max_steps)
+	current_step = int(clamp(value, 0, __max_steps))
 	update()
 
 

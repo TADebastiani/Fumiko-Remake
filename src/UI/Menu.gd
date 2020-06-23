@@ -13,7 +13,10 @@ func _ready() -> void:
 
 
 func _on_PlayButton_pressed() -> void:
-	get_tree().change_scene_to(main_scene)
+	var err = get_tree().change_scene_to(main_scene)
+	if err:
+		print("Error loading game!")
+		print(err)
 
 
 func _on_QuitButton_pressed() -> void:
@@ -21,4 +24,7 @@ func _on_QuitButton_pressed() -> void:
 
 
 func _on_CreditsButton_pressed() -> void:
-	get_tree().change_scene_to(credits_scene)
+	var err = get_tree().change_scene_to(credits_scene)
+	if err:
+		print("Error loading credits!")
+		print(err)

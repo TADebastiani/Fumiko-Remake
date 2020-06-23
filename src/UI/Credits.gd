@@ -10,4 +10,7 @@ func _ready() -> void:
 
 
 func _on_Back_pressed() -> void:
-	get_tree().change_scene("res://src/UI/Menu.tscn")
+	var err = get_tree().change_scene("res://src/UI/Menu.tscn")
+	if err:
+		print("Error loading Menu scene")
+		print(err)

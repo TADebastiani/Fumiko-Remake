@@ -1,9 +1,5 @@
 extends State
 
-signal jumped
-
-onready var jump_delay: Timer = $JumpDelay
-
 
 func enter(msg: Dictionary = {}) -> void:
 	_parent.enter(msg)
@@ -16,7 +12,6 @@ func enter(msg: Dictionary = {}) -> void:
 	_parent.snap_vector.y = 0
 	if "impulse" in msg:
 		_parent.velocity += calculate_jump_velocity(msg.impulse)
-		print(calculate_jump_velocity(msg.impulse))
 
 
 func unhandled_input(event: InputEvent) -> void:
@@ -46,7 +41,7 @@ func exit() -> void:
 func calculate_jump_velocity(impulse: float) -> Vector2:
 	return _parent.calculate_velocity(
 		_parent.velocity,
-		_parent.max_speed,
+		_parent.maximum_speed,
 		Vector2(0, impulse),
 		1.0,
 		Vector2.UP
