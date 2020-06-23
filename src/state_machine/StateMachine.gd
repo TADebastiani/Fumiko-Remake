@@ -18,7 +18,6 @@ func _init() -> void:
 func _ready() -> void:
 	yield(owner, "ready")
 	state.enter()
-	print(state.name)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -39,7 +38,6 @@ func transition_to(target_state_path: String, msg: Dictionary = {}) -> void:
 	previous_state = state
 	state = target_state
 	state.enter(msg)
-	print(state.name)
 
 
 func transition_to_previous(msg: Dictionary = {}) -> void:

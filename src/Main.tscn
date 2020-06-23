@@ -1,12 +1,15 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/world/WorldGenerator.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/actors/enemy/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/actors/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Main.gd" type="Script" id=4]
+[ext_resource path="res://assets/UI/key_spacebar.png" type="Texture" id=5]
 [ext_resource path="res://src/UI/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/world/Coin.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/world/Collectables.gd" type="Script" id=8]
+[ext_resource path="res://assets/UI/key_arrow.png" type="Texture" id=9]
+[ext_resource path="res://src/UI/resources/font_8.tres" type="DynamicFont" id=10]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 4 )
@@ -14,20 +17,6 @@ Enemy = ExtResource( 2 )
 Coin = ExtResource( 7 )
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2( 2, 2 )
-
-[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer"]
-margin_top = -1.0
-margin_right = 510.0
-margin_bottom = 254.0
-color = Color( 0.0627451, 0.0509804, 0.0313726, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="WorldGenerator" parent="." instance=ExtResource( 1 )]
 
@@ -42,6 +31,72 @@ script = ExtResource( 8 )
 [node name="Coins" type="Node2D" parent="."]
 
 [node name="GameOverTimer" type="Timer" parent="."]
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+margin_top = -1.0
+margin_right = 510.0
+margin_bottom = 254.0
+color = Color( 0.0627451, 0.0509804, 0.0313726, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keys" type="Node2D" parent="."]
+position = Vector2( 72, -37 )
+
+[node name="up" type="Sprite" parent="Keys"]
+position = Vector2( 21, 10 )
+texture = ExtResource( 9 )
+
+[node name="jump" type="Label" parent="Keys/up"]
+margin_left = 10.0
+margin_top = -5.0
+margin_right = 29.0
+margin_bottom = 3.0
+custom_fonts/font = ExtResource( 10 )
+text = "jump"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="left" type="Sprite" parent="Keys"]
+position = Vector2( 12, 27 )
+rotation = -1.5708
+texture = ExtResource( 9 )
+
+[node name="right" type="Sprite" parent="Keys"]
+position = Vector2( 29, 28 )
+rotation = 1.5708
+texture = ExtResource( 9 )
+
+[node name="move" type="Label" parent="Keys"]
+margin_left = 40.0
+margin_top = 23.0
+margin_right = 61.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 10 )
+text = "move"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="space" type="Sprite" parent="Keys"]
+position = Vector2( 100, 18 )
+texture = ExtResource( 5 )
+
+[node name="attack" type="Label" parent="Keys/space"]
+margin_left = 25.0
+margin_top = -4.0
+margin_right = 52.0
+margin_bottom = 4.0
+custom_fonts/font = ExtResource( 10 )
+text = "attack"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="dead" from="Player" to="." method="_on_Player_dead"]
 [connection signal="hurted" from="Player" to="." method="_on_Player_hurted"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_GameOverTimer_timeout"]

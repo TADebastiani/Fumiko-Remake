@@ -30,6 +30,10 @@ config/name="Fumiko Remake"
 run/main_scene="res://src/UI/Menu.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Data="*res://src/Data.gd"
+
 [display]
 
 window/size/width=512

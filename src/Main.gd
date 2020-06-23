@@ -40,7 +40,6 @@ func create_level() -> void:
 
 	for pos in positions:
 		instance_notifiers(pos)
-		# TODO: improve _physics_process
 		instance_enemies(pos)
 		instance_coins(pos)
 
@@ -107,9 +106,10 @@ func _on_Player_hurted(life: int) -> void:
 
 
 func _on_Player_dead() -> void:
-	$HUD.show_game_over(true)
-	$GameOverTimer.start(1)
+	var new = Data.save_score(__score)
+	$HUD.show_game_over(new)
+	$GameOverTimer.start(3)
 
 
 func _on_GameOverTimer_timeout() -> void:
-	pass
+	get_tree().change_scene("res://src/UI/Menu.tscn")

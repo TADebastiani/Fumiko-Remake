@@ -36,5 +36,4 @@ func get_velocity() -> Vector2:
 
 
 func _on_VisibilityEnabler2D_screen_exited() -> void:
-	print("non visible")
 	queue_free()

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/UI/resources/font_16.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/UI/HeartProgress.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/UI/pause_button.png" type="Texture" id=3]
 [ext_resource path="res://src/UI/HUD.gd" type="Script" id=4]
 [ext_resource path="res://src/UI/resources/font_32.tres" type="DynamicFont" id=5]
 
@@ -59,7 +58,7 @@ align = 1
 [node name="Tween" type="Tween" parent="GameOver"]
 
 [node name="LeftContainer" type="MarginContainer" parent="."]
-margin_left = 4.0
+margin_left = 20.0
 margin_top = 4.0
 margin_right = 108.0
 margin_bottom = 36.0
@@ -70,13 +69,16 @@ __meta__ = {
 
 [node name="HeartProgress" parent="LeftContainer" instance=ExtResource( 2 )]
 margin_top = 0.0
-margin_right = 104.0
+margin_right = 88.0
 margin_bottom = 32.0
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_top = 20.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -90.0
+margin_top = 4.0
+margin_right = -20.0
+margin_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_clip_content = true
@@ -85,26 +87,9 @@ __meta__ = {
 }
 
 [node name="Score" type="Label" parent="CenterContainer"]
-margin_right = 68.0
+margin_left = 1.0
+margin_right = 69.0
 margin_bottom = 16.0
 custom_fonts/font = ExtResource( 1 )
 text = "Score: 0"
-align = 1
-
-[node name="RightContainer" type="MarginContainer" parent="."]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 256.0
-margin_top = 4.0
-margin_right = -4.0
-margin_bottom = 20.0
-grow_horizontal = 0
-grow_vertical = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PauseButton" type="TextureButton" parent="RightContainer"]
-margin_right = 16.0
-margin_bottom = 16.0
-texture_normal = ExtResource( 3 )
+align = 2
