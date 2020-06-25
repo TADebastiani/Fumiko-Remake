@@ -20,4 +20,4 @@ func _on_VisibilityNotifier2D_screen_exited() -> void:
 
 func _on_Coin_body_entered(_body: Node) -> void:
 	queue_free()
-	emit_signal("collected", score)
+	emit_signal("collected", self)

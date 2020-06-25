@@ -7,7 +7,8 @@ const FLOOR_NORMAL := Vector2.UP
 
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var hurt_area: Area2D = $HurtArea
-onready var attack_area: Area2D = $ArtackArea
+onready var attack_area: Area2D = $AttackArea
+onready var attack_sprite: Sprite = $AttackArea/AttackSprite
 onready var camera: Camera2D = $Camera2D
 onready var sprite: Sprite = $Sprite
 
@@ -23,7 +24,7 @@ func flip(direction: float) -> void:
 	if direction != 0:
 		$Sprite.scale.x = direction
 		$CollisionShape2D.scale.x = direction
-		$ArtackArea.scale.x = direction
+		attack_area.scale.x = direction
 
 
 func _on_HurtArea_body_entered(_body: Node) -> void:
@@ -34,3 +35,10 @@ func _on_HurtArea_body_entered(_body: Node) -> void:
 	else:
 		emit_signal("hurted", __life)
 		$StateMachine.transition_to("Hurt")
+
+
+func get_position() -> Vector2:
+	return Vector2(
+		int(global_position.x),
+		int(global_position.y)
+	)

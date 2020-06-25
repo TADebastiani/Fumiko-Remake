@@ -33,7 +33,7 @@ tracks/0/keys = {
 "values": [ 6, 7, 8 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("ArtackArea/AttackSprite:frame")
+tracks/1/path = NodePath("AttackArea/AttackSprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -45,7 +45,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("ArtackArea/AttackSprite:visible")
+tracks/2/path = NodePath("AttackArea/AttackSprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -176,19 +176,19 @@ anims/idle = SubResource( 5 )
 anims/jump = SubResource( 6 )
 anims/run = SubResource( 7 )
 
-[node name="ArtackArea" type="Area2D" parent="."]
+[node name="AttackArea" type="Area2D" parent="."]
 monitoring = false
 collision_layer = 0
 collision_mask = 4
 
-[node name="AttackSprite" type="Sprite" parent="ArtackArea"]
+[node name="AttackSprite" type="Sprite" parent="AttackArea"]
 visible = false
 position = Vector2( 9, -1 )
 texture = ExtResource( 11 )
 hframes = 4
 frame = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArtackArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2( 19, 0 )
 shape = SubResource( 8 )
 

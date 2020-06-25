@@ -47,7 +47,10 @@ __meta__ = {
 }
 
 [node name="Keys" type="Node2D" parent="."]
-position = Vector2( 72, -37 )
+position = Vector2( 202, -37 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="up" type="Sprite" parent="Keys"]
 position = Vector2( 21, 10 )

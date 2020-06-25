@@ -12,6 +12,9 @@ onready var screen_height = ProjectSettings.get_setting("display/window/size/hei
 
 onready var world = $WorldGenerator
 
+onready var min_width = world.tile_size.x * 2
+onready var max_width = screen_width - min_width
+
 var __score: int = 0
 
 
@@ -45,20 +48,31 @@ func _input(event: InputEvent) -> void:
 
 
 func create_level() -> void:
-	var position =  world.create_levels(2)
+	var position =  world.create_levels(1)
 
 	for pos in position:
-		instance_coins(pos)
-		instance_enemies(pos)
+		instance_coins(pos[0])
+		instance_enemies(pos[0], pos[1])
 
 
-func instance_enemies(new_position: Vector2) -> void:
+func instance_enemies(new_position: Vector2, gap: Array) -> void:
 	new_position.y -= world.tile_size.y
-	new_position.x = rand_range(world.tile_size.x * 2, screen_width - (world.tile_size.x * 2))
+	new_position.x = rand_range(min_width, max_width)
+
+	if new_position.x >= gap[0] and new_position.x <= gap[1]:
+		if gap[1] >= max_width - (world.tile_size.x * 3):
+			new_position.x = gap[0] - world.tile_size.x * 3
+		else:
+			new_position.x = gap[1] + world.tile_size.x * 3
+
 	var ant = Enemy.instance()
 	ant.position = new_position
 	ant.connect("killed", self, "_on_enemy_killed")
 	$Enemies.add_child(ant)
+	$DebugLayer.add_stat(ant.get_instance_id(),
+		"Ant (%d)" % ant.get_instance_id(),
+		ant, "get_position", true
+	)
 
 
 func instance_coins(new_position: Vector2) -> void:
@@ -88,8 +102,9 @@ func increase_score(value) -> void:
 
 func instance_debug() ->void:
 	var debug = DebugLayer.instance()
-	debug.add_stat("FPS", Engine, "get_frames_per_second", true)
-	debug.add_stat("Static memory", OS, "get_static_memory_usage", true)
+	debug.add_stat(0, "FPS", Engine, "get_frames_per_second", true)
+	debug.add_stat(1, "Static memory", OS, "get_static_memory_usage", true)
+	debug.add_stat(2, "Player", $Player, "get_position", true)
 	debug.hide()
 	add_child(debug)
 
@@ -99,14 +114,15 @@ func _on_PlayerCamera_moved(camera_position: Vector2) -> void:
 	create_level()
 
 
-func _on_coin_collected(score) -> void:
-	increase_score(score)
+func _on_coin_collected(coin) -> void:
+	increase_score(coin.score)
 	$Collectables.sum_coin()
 
 
-func _on_enemy_killed(score) -> void:
-	increase_score(score)
+func _on_enemy_killed(enemy) -> void:
+	increase_score(enemy.score)
 	$Collectables.sum_enemies()
+	$DebugLayer.remove_stat(enemy.get_instance_id())
 
 
 func _on_Player_hurted(life: int) -> void:

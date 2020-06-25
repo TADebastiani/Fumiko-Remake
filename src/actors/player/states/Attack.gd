@@ -9,6 +9,7 @@ func enter(_msg: Dictionary = {}) -> void:
 
 
 func exit() -> void:
+	owner.attack_sprite.visible = false
 	owner.animation_player.disconnect("animation_finished", self, "_on_AnimationPlayer_animation_finished")
 	owner.attack_area.disconnect("body_entered", self, "_on_AttackArea_body_entered")
 	owner.attack_area.monitoring = false

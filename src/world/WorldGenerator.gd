@@ -30,21 +30,26 @@ func create_levels(size: int) -> Array:
 	return positions
 
 
-func create_level() -> Vector2:
+func create_level() -> Array:
 	var start_y = $TileMap.get_used_rect().end.y
-	var gap = int(rand_range(2, tiles_per_level - 2))
 	var y = start_y + level_height
+	var gap = [int(rand_range(2, tiles_per_level - 2))]
+	gap.append(gap[0] + 1)
 
 	# Walls
 	create_walls(start_y)
 
 	# Floor
 	for x in range(0, tiles_per_level):
-		if x != gap and x != gap + 1:
+		if not x in gap:
 			$TileMap.set_cell(x, y, default_tile)
 	$TileMap.update_bitmask_region(Vector2(0, y), Vector2(tiles_per_level, y))
+	var world_gap = [
+		$TileMap.map_to_world(Vector2(gap[0], 0)).x,
+		$TileMap.map_to_world(Vector2(gap[1], 0)).x
+	]
 
-	return $TileMap.map_to_world(Vector2(0, y))
+	return [$TileMap.map_to_world(Vector2(0, y)), world_gap]
 
 
 func create_walls(start_y: int, end_y: int = level_height) -> void:

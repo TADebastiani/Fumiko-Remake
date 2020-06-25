@@ -35,7 +35,7 @@ func flip() -> void:
 func kill() -> void:
 	_velocity = Vector2.ZERO
 	$AnimationPlayer.stop()
-	emit_signal("killed", score)
+	emit_signal("killed", self)
 	queue_free()
 
 
@@ -43,5 +43,13 @@ func get_velocity() -> Vector2:
 	return _velocity
 
 
+func get_position() -> Vector2:
+	return Vector2(
+		int(global_position.x),
+		int(global_position.y)
+	)
+
+
 func _on_VisibilityEnabler2D_screen_exited() -> void:
-	queue_free()
+#	queue_free()
+	kill()
